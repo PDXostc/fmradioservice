@@ -1,5 +1,5 @@
 AC_PREREQ([2.68])
-AC_INIT([fmradioservice], [0.9], [https://github.com/PDXostc/fm_radio-native/issues], [], [https://github.com/PDXostc/fm_radio-native])
+AC_INIT([fmradioservice], [1.0], [https://github.com/PDXostc/fm_radio-native/issues], [], [https://github.com/PDXostc/fm_radio-native])
 AC_CONFIG_SRCDIR([src/fm_radio_service.c])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
