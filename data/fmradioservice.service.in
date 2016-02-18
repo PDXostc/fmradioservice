@@ -1,0 +1,12 @@
+
+# This is the radiosubsystem service for the session
+
+[Unit]
+Description=Radioservice Session Message Bus
+Requires=dbus.socket
+
+[Service]
+Type=dbus
+BusName=com.jlr.fmradioservice
+ExecStart=@bindir@/fmradioservice
+Restart=always

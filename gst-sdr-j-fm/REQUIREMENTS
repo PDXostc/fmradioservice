@@ -1,0 +1,10 @@
+gst-sdr-j-fm requires:
+
+	- autoconf
+	- automake
+	- libtool
+	- libgstreamer1.0-dev
+	- libgstreamer-plugins-base1.0-dev
+	- librtlsdr-dev
+
+Packge names may vary between distros.

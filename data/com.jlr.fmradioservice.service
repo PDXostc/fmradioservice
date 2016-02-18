@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=com.jlr.fmradioservice
+Exec=@bindir@/fmradioservice
+SystemdService=fmradioservice.service

@@ -1,0 +1,23 @@
+gst-sdr-j-fm is a GStreamer wrapper/fork around the SDR-J FM receiver.
+It provides ability to playback FM radio from signal acquires from devices
+supported by the RTL SDR projects. Demodulation is done in software re-using
+code initially found in the SDR-J software.
+
+To use it, you need GStreamer 1.0.
+
+Install the GStreamer 1.0 dev packages, then just build and install this module.
+
+For example, again on Raspbian:
+
+./autogen --prefix=/usr
+make
+sudo make install
+
+Then, you can try out the playing fm radio:
+
+gst-launch-1.0 playbin uri=fm:///99.9
+
+gst-inspect-1.0 sdrjfmsrc to get an idea of the properties that have been
+implemented.
+
+See the REQUIREMENTS file for the full list of build requirements.
