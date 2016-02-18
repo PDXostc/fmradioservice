@@ -27,8 +27,9 @@ PKG_CHECK_MODULES([SNDFILE], [sndfile])
 PKG_CHECK_MODULES([USB], [libusb-1.0])
 
 PKG_PROG_PKG_CONFIG
+
 AC_ARG_WITH([systemdsystemunitdir],
-  [AS_HELP_STRING([--with-systemdsystemunitdir=DIR], [Directory for systemd service files])],
+  [AS_HELP_STRING([--with-systemdsystemunitdir=DIR], [Directory for systemd unit files])],
   [],
   [with_systemdsystemunitdir=auto])
 AS_IF([test "x$with_systemdsystemunitdir" = "xyes" -o "x$with_systemdsystemunitdir" = "xauto"],
@@ -39,9 +40,23 @@ AS_IF([test "x$with_systemdsystemunitdir" = "xyes" -o "x$with_systemdsystemunitd
     with_systemdsystemunitdir=no],
    [with_systemdsystemunitdir="$def_systemdsystemunitdir"])])
 AS_IF([test "x$with_systemdsystemunitdir" != "xno"],
-  [AC_SUBST([unitdir], [$with_systemdsystemunitdir])
-   AC_SUBST([servicedir], [`$PKG_CONFIG --variable=session_bus_services_dir dbus-1`])])
+  [AC_SUBST([unitdir], [$with_systemdsystemunitdir])])
 AM_CONDITIONAL([HAVE_SYSTEMD], [test "x$with_systemdsystemunitdir" != "xno"])
+
+AC_ARG_WITH([sessionbusservicesdir],
+  [AS_HELP_STRING([--with-sessionbusservicesdir=DIR], [Directory for D-BUS service files])],
+  [],
+  [with_sessionbusservicesdir=auto])
+AS_IF([test "x$with_sessionbusservicesdir" = "xyes" -o "x$with_sessionbusservicesdir" = "xauto"],
+  [def_sessionbusservicesdir=$($PKG_CONFIG --variable=session_bus_services_dir systemd)
+   AS_IF([test "x$def_sessionbusservicesdir" = "x"],
+   [AS_IF([test "x$with_sessionbusservicesdir" = "xyes"],
+          [AC_MSG_ERROR([D-BUS support requested but pkg-config unable to query dbus-1 package])])
+    with_sessionbusservicesdir=no],
+   [with_sessionbusservicesdir="$def_sessionbusservicesdir"])])
+AS_IF([test "x$with_sessionbusservicesdir" != "xno"],
+  [AC_SUBST([servicedir], [$with_sessionbusservicesdir])])
+AM_CONDITIONAL([HAVE_DBUS], [test "x$with_sessionbusservicesdir" != "xno"])
 
 ## -------------------- ##
 ## Weird Collabra stuff ##

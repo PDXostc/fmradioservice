@@ -3,8 +3,12 @@ CLEANFILES =
 
 if HAVE_SYSTEMD
 unit_DATA = fmradioservice.service
+CLEANFILES += $(unit_DATA)
+endif
+
+if HAVE_DBUS
 service_DATA = com.jlr.fmradioservice.service
-CLEANFILES += $(unit_DATA) $(service_DATA)
+CLEANFILES += $(service_DATA)
 endif
 
 fmradioservice.service: fmradioservice.service.in
