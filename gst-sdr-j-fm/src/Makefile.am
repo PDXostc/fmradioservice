@@ -26,7 +26,7 @@ libgstsdrjfm_la_SOURCES = \
 
 
 libgstsdrjfm_la_CXXFLAGS = \
-	 -I$(top_srcdir)/../../extension_common -I$(top_srcdir)/src/sdr-j-fm-small/{small-gui{,/dabstick},includes{,/{fm,output,rds,various}}} \
+	 -I$(top_srcdir)/src/sdr-j-fm-small/{small-gui{,/dabstick},includes{,/{fm,output,rds,various}}} \
 	 $(GST_CFLAGS) $(RS_CFLAGS) $(SR_CFLAGS) $(FFTW_CFLAGS)
 libgstsdrjfm_la_LIBADD = $(GST_LIBS) $(RS_LIBS) $(SR_LIBS) $(FFTW_LIBS)
 libgstsdrjfm_la_LDFLAGS = $(GST_PLUGIN_LDFLAGS)
@@ -58,4 +58,5 @@ noinst_HEADERS = \
 	sdr-j-fm-small/small-gui/dabstick/dabstick-dll.h \
 	sdr-j-fm-small/small-gui/virtual-input.h \
 	sdr-j-fm-small/small-gui/gui.h \
-	gstsdrjfmsrc.h
+	gstsdrjfmsrc.h \
+	fm_radio_common.h

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ***********************************************************-->
+<!-- DBUS RadioService interface declaration                    -->
+<!--  The following 'interface' defines all the methods and     -->
+<!--  signals (WebFMapi compliant) that DBUS Radioservice       -->
+<!--  supports and implements.                                  -->
+<!--                                                            -->
+<!-- Note:                                                      -->
+<!--  This .xml file will be used during build-time to generate -->
+<!--  dbus stubs (client-bindings.h and server-bindings.h)      -->
+<!--  that will be included by both server and client(extension)-->
+<!--  to communicate between each other                         -->
+
+<node name="/com/jlr/fmradioservice">
+	<interface name="com.jlr.fmradioservice">
+		<annotation name="org.freedesktop.DBus.GLib.CSymbol" value="server"/>
+
+		<!-- Method for enabling internal radio and demodulation. No argument -->
+		<method name="enable">
+		</method>
+		<!-- Method for disabling internal radio and demodulation. No argument -->
+		<method name="disable">
+		</method>
+		<!-- Method for setting tuned FM frequency. Arg. frequency in Hz (double) -->
+		<method name="setfrequency">
+			<arg type='d' name='frequency' direction='in'/>"
+		</method>
+		<!-- Method for starting a seek. Arg. direction (bool). TRUE : up, FALSE: down -->
+        <method name="seek">
+			<arg type='b' name='direction' direction='in'/>"
+		</method>
+		<!-- Method for cancelling a currently running seek operation. No argument -->
+		<method name="cancelseek">
+		</method>
+
+		<!-- Signal emitted when radio is enabled. No argument -->
+		<signal name="onenabled">
+		</signal>
+		<!-- Signal emitted when radio is disabled. No argument -->
+		<signal name="ondisabled">
+		</signal>
+		<!-- Signal emitted when internal frequency is changed. double (d) argument. frequency in Hz. -->
+		<signal name="onfrequencychanged">
+			<arg name="frequency" type="d"/>
+		</signal>
+		<!-- Signal emitted when station is found (during seek). double (d) argument. Station frequency in Hz. -->
+		<signal name="onstationfound">
+			<arg name="frequency" type="d"/>
+		</signal>
+		<!-- Signal emitted when 'label' or 'text' RDS field is cleared by emitting station. uint (u) argument. RDS string type (type) -->
+		<signal name="onrdsclear">
+			<arg name="type" type="u"/>
+		</signal>
+		<!-- Signal emitted when some 'label' or 'text' RDS field data is received. Arguments : uint (u) => RDS string type (type), string (s) => RDS string data (data)-->
+		<signal name="onrdschange">
+			<arg name="type" type="u"/>
+			<arg name="data" type="s"/>
+		</signal>
+		<!-- Signal emitted when 'label' or 'text' RDS field data is received. Arguments : uint (u) => RDS string type (type), string (s) => RDS string data (data) -->
+		<signal name="onrdscomplete">
+			<arg name="type" type="u"/>
+			<arg name="data" type="s"/>
+		</signal>
+
+		<!-- boolean (b) property 'enabled' -->
+		<property name="enabled" type="b" access="read"/>
+		<!-- double (d) property 'frequency' -->
+		<property name="frequency" type="d" access="read"/>
+	</interface>
+</node>

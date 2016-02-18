@@ -68,7 +68,7 @@
 #include <gio/gio.h>
 #include <dbus/dbus-glib.h>
 #include <dbus/dbus-glib-bindings.h>
-#include "../../extension_common/fm_radio_common.h"
+#include "fm_radio_common.h"
 
 #ifdef G_OS_UNIX
 #include <glib-unix.h>
@@ -1083,4 +1083,3 @@ main(int argc, char** argv)
     /* Should never be reached in normal working conditions */
     return EXIT_FAILURE;
 }
-
