@@ -1,3 +1,4 @@
+plugindir = $(libdir)/gstreamer-1.0
 plugin_LTLIBRARIES = libgstsdrjfm.la
 
 libgstsdrjfm_la_SOURCES = \
