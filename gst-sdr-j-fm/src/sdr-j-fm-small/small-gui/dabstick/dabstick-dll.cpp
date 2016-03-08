@@ -7,7 +7,7 @@
  *
  *    This file is part of the SDR-J.
  *    Many of the ideas as implemented in SDR-J are derived from
- *    other work, made available through the GNU general Public License. 
+ *    other work, made available through the GNU general Public License.
  *    All copyrights of the original authors are recognized.
  *
  *    SDR-J is free software; you can redistribute it and/or modify
@@ -89,7 +89,7 @@ public:
 		if (err != 0) {
 			std::cerr << "warning: could not join processor thread: "
 				  << strerror(err) << std::endl;
-		} 
+		}
 	}
 
 private:
@@ -139,8 +139,8 @@ int16_t	i;
 	const char *libraryString = "rtlsdr.dll";
 	Handle		= LoadLibrary ((wchar_t *)L"rtlsdr.dll");
 #else
-	const char *libraryString = "librtlsdr.so";
-	Handle		= dlopen ("librtlsdr.so", RTLD_NOW);
+	const char *libraryString = "librtlsdr.so.0.0.5";
+	Handle		= dlopen ("librtlsdr.so.0.0.5", RTLD_NOW);
 #endif
 
 	if (Handle == NULL) {
@@ -188,7 +188,7 @@ int16_t	i;
 	for (i = gainsCount; i > 0; i--)
 		fprintf(stderr, "%.1f ", gains [i - 1] / 10.0);
 	rtlsdr_set_tuner_gain_mode (device, 1);
-	
+
 	rtlsdr_set_tuner_gain (device, gains [gainsCount-1]);
 	fprintf(stderr, "\nSet gain to %f\n", gains [gainsCount-1] / 10.0);
 
@@ -298,7 +298,7 @@ int32_t	r;
 
 	   r	= this -> rtlsdr_get_sample_rate (device);
 	}
-	else {	
+	else {
 //	we stop the transmission first
 	   stopReader ();
 	   r	= this -> rtlsdr_set_sample_rate (device, newRate);
@@ -321,7 +321,7 @@ static int	oldGain	= 0;
 	if (gain == oldGain)
 	   return gains [oldGain];
 	if ((gain < 0) || (gain >= gainsCount))
-	   return gains [oldGain];	
+	   return gains [oldGain];
 
 	oldGain	= gain;
 	rtlsdr_set_tuner_gain (device, gains [gainsCount - gain]);
@@ -338,7 +338,7 @@ void	dabstick_dll::freqCorrection	(int32_t ppm) {
 //	The brave old getSamples. For the dab stick, we get
 //	size: still in I/Q pairs, but we have to convert the data from
 //	uint8_t to DSPCOMPLEX *
-int32_t	dabstick_dll::getSamples (DSPCOMPLEX *V, int32_t size) { 
+int32_t	dabstick_dll::getSamples (DSPCOMPLEX *V, int32_t size) {
 int32_t	amount, i;
 uint8_t	*tempBuffer = (uint8_t *)alloca (2 * size * sizeof (uint8_t));
 //
@@ -482,7 +482,7 @@ bool	dabstick_dll::load_rtlFunctions (void) {
 	   fprintf (stderr, "Could not find rtlsdr_set_freq_correction\n");
 	   return false;
 	}
-	
+
 	rtlsdr_get_device_name = (pfnrtlsdr_get_device_name)
 	                  GETPROCADDRESS (Handle, "rtlsdr_get_device_name");
 	if (rtlsdr_get_device_name == NULL) {
@@ -505,4 +505,3 @@ int16_t	dabstick_dll::maxGain	(void) {
 int16_t	dabstick_dll::bitDepth	(void) {
 	return 8;
 }
-
