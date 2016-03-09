@@ -28,39 +28,27 @@ PKG_CHECK_MODULES([USB], [libusb-1.0])
 
 PKG_PROG_PKG_CONFIG
 
-AC_ARG_WITH([systemdsystemunitdir],
-  [AS_HELP_STRING([--with-systemdsystemunitdir=DIR], [Directory for systemd unit files])],
+## ---------------------------------------------------------- ##
+## Check for systemd and set the user unit directory variable ##
+## ---------------------------------------------------------- ##
+AC_ARG_WITH([systemduserunitdir],
+  [AS_HELP_STRING([--with-systemduserunitdir=DIR], [Directory for systemd user unit files])],
   [],
-  [with_systemdsystemunitdir=auto])
-AS_IF([test "x$with_systemdsystemunitdir" = "xyes" -o "x$with_systemdsystemunitdir" = "xauto"],
-  [def_systemdsystemunitdir=$($PKG_CONFIG --variable=systemdsystemunitdir systemd)
-   AS_IF([test "x$def_systemdsystemunitdir" = "x"],
-   [AS_IF([test "x$with_systemdsystemunitdir" = "xyes"],
+  [with_systemduserunitdir=auto])
+AS_IF([test "x$with_systemduserunitdir" = "xyes" -o "x$with_systemduserunitdir" = "xauto"],
+  [def_systemduserunitdir=$($PKG_CONFIG --variable=systemduserunitdir systemd)
+   AS_IF([test "x$def_systemduserunitdir" = "x"],
+   [AS_IF([test "x$with_systemduserunitdir" = "xyes"],
           [AC_MSG_ERROR([systemd support requested but pkg-config unable to query systemd package])])
-    with_systemdsystemunitdir=no],
-   [with_systemdsystemunitdir="$def_systemdsystemunitdir"])])
-AS_IF([test "x$with_systemdsystemunitdir" != "xno"],
-  [AC_SUBST([unitdir], [$with_systemdsystemunitdir])])
-AM_CONDITIONAL([HAVE_SYSTEMD], [test "x$with_systemdsystemunitdir" != "xno"])
+    with_systemduserunitdir=no],
+   [with_systemduserunitdir="$def_systemduserunitdir"])])
+AS_IF([test "x$with_systemduserunitdir" != "xno"],
+  [AC_SUBST([systemduserunitdir], [$with_systemduserunitdir])])
+AM_CONDITIONAL([HAVE_SYSTEMD], [test "x$with_systemduserunitdir" != "xno"])
 
-AC_ARG_WITH([sessionbusservicesdir],
-  [AS_HELP_STRING([--with-sessionbusservicesdir=DIR], [Directory for D-BUS service files])],
-  [],
-  [with_sessionbusservicesdir=auto])
-AS_IF([test "x$with_sessionbusservicesdir" = "xyes" -o "x$with_sessionbusservicesdir" = "xauto"],
-  [def_sessionbusservicesdir=$($PKG_CONFIG --variable=session_bus_services_dir systemd)
-   AS_IF([test "x$def_sessionbusservicesdir" = "x"],
-   [AS_IF([test "x$with_sessionbusservicesdir" = "xyes"],
-          [AC_MSG_ERROR([D-BUS support requested but pkg-config unable to query dbus-1 package])])
-    with_sessionbusservicesdir=no],
-   [with_sessionbusservicesdir="$def_sessionbusservicesdir"])])
-AS_IF([test "x$with_sessionbusservicesdir" != "xno"],
-  [AC_SUBST([servicedir], [$with_sessionbusservicesdir])])
-AM_CONDITIONAL([HAVE_DBUS], [test "x$with_sessionbusservicesdir" != "xno"])
-
-## -------------------- ##
-## Weird Collabra stuff ##
-## -------------------- ##
+## --------------------- ##
+## Weird Collabora stuff ##
+## --------------------- ##
 APP_CFLAGS="-Wall -fno-strict-aliasing $GLIB_CFLAGS $GIO_CFLAGS $GOBJECT_CFLAGS $DBUS_CFLAGS $APP_CFLAGS"
 APP_LIBS="$GLIB_LIBS $GIO_LIBS $GOBJECT_LIBS $DBUS_LIBS $DBUS_GLIB $APP_LIBS"
 AC_SUBST([APP_CFLAGS])
