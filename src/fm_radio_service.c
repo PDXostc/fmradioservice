@@ -921,7 +921,7 @@ sdrjfm_init (RadioServer *server, void (*playing_cb) (GstData*),
     server->gstData = data;
     data->pipeline =
         gst_parse_launch ("sdrjfmsrc name=sdrjfm ! audioresample ! queue"
-			  " ! pulsesink stream-properties="
+			  " ! pulsesink device=AlsaPrimary stream-properties="
 			  "\"props,media.role=music,zone.name=driver\"",
         &error);
     g_assert_no_error (error);
